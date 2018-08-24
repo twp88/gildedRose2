@@ -67,4 +67,71 @@ describe GildedRose do
       end
     end
   end
+
+  describe '#update_quality' do
+    context 'when the item is backstage pass' do
+      let(:items) do
+        [backstage_pass1,
+         backstage_pass2,
+         backstage_pass3,
+         backstage_pass4]
+      end
+
+      let(:backstage_pass1) do
+        Item.new(
+          'Backstage passes to a TAFKAL80ETC concert',
+          15,
+          2
+        )
+      end
+
+      let(:backstage_pass2) do
+        Item.new(
+          'Backstage passes to a TAFKAL80ETC concert',
+          10,
+          2
+        )
+      end
+
+      let(:backstage_pass3) do
+        Item.new(
+          'Backstage passes to a TAFKAL80ETC concert',
+          5,
+          2
+        )
+      end
+
+      let(:backstage_pass4) do
+        Item.new(
+          'Backstage passes to a TAFKAL80ETC concert',
+          0,
+          2
+        )
+      end
+
+      it 'does not change the name' do
+        expect { subject.update_quality }.not_to(change { items[0].name })
+      end
+
+      it 'increases quality x1' do
+        expect { subject.update_quality }.to change { backstage_pass1.quality }
+          .by(+1)
+      end
+
+      it 'increases quality x2' do
+        expect { subject.update_quality }.to change { backstage_pass2.quality }
+          .by(+2)
+      end
+
+      it 'increases quality x3' do
+        expect { subject.update_quality }.to change { backstage_pass3.quality }
+          .by(+3)
+      end
+
+      it 'decreases quality to 0' do
+        expect { subject.update_quality }.to change { backstage_pass4.quality }
+          .to(0)
+      end
+    end
+  end
 end
