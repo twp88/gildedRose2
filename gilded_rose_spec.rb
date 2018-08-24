@@ -30,4 +30,41 @@ describe GildedRose do
       end
     end
   end
+
+  describe '#update_quality' do
+    context 'when the item is aged brie' do
+      let(:items) { [aged_brie_item] }
+      let(:aged_brie_item) { Item.new('Aged Brie', 2, 2) }
+
+      it 'does not change the name' do
+        expect { subject.update_quality }.not_to(change { items[0].name })
+      end
+
+      it 'degrades sellIn' do
+        expect { subject.update_quality }.to change { aged_brie_item.sell_in }
+          .by(-1)
+      end
+
+      it 'increases quality with age' do
+        expect { subject.update_quality }.to change { aged_brie_item.quality }
+          .by(+1)
+      end
+    end
+  end
+
+  describe '#update_quality' do
+    context 'when the item is sulfuras' do
+      let(:items) { [sulfuras_item] }
+      let(:sulfuras_item) { Item.new('Sulfuras, Hand of Ragnaros', 2, 2) }
+
+      it 'does not change the name' do
+        expect { subject.update_quality }.not_to(change { items[0].name })
+      end
+
+      it 'does not change quality' do
+        expect { subject.update_quality }
+          .not_to(change { sulfuras_item.quality })
+      end
+    end
+  end
 end
