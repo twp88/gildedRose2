@@ -5,9 +5,10 @@ describe GildedRose do
 
   describe '#update_quality' do
     context 'when the item is normal' do
-      let(:items) { [normal_item, no_sell_in_item] }
+      let(:items) { [normal_item, no_sell_in_item, zero_quality_item] }
       let(:normal_item) { Item.new('foo', 2, 2) }
-      let(:no_sell_in_item) { Item.new('foo', 0, 2) }
+      let(:no_sell_in_item) { Item.new('no_sell', 0, 4) }
+      let(:zero_quality_item) { Item.new('no_sell', 0, 0) }
 
       it 'does not change the name' do
         expect { subject.update_quality }.not_to(change { items[0].name })
@@ -27,6 +28,11 @@ describe GildedRose do
         expect { subject.update_quality }
           .to change { no_sell_in_item.quality }
           .by(-2)
+      end
+
+      it 'does not degrade quality lower than 0' do
+        expect { subject.update_quality }
+          .not_to(change { zero_quality_item.quality })
       end
     end
   end
