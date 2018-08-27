@@ -67,9 +67,9 @@ describe GildedRose do
         expect { subject.update_quality }.not_to(change { items[0].name })
       end
 
-      it 'does not change quality' do
+      it 'has a quality of 80' do
         expect { subject.update_quality }
-          .not_to(change { sulfuras_item.quality })
+          .to change { sulfuras_item.quality }.to 80
       end
     end
   end
