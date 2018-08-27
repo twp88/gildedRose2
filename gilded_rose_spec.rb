@@ -6,9 +6,9 @@ describe GildedRose do
   describe '#update_quality' do
     context 'when the item is normal' do
       let(:items) { [normal_item, no_sell_in_item, zero_quality_item] }
-      let(:normal_item) { Item.new('foo', 2, 2) }
-      let(:no_sell_in_item) { Item.new('no_sell', 0, 4) }
-      let(:zero_quality_item) { Item.new('no_sell', 0, 0) }
+      let(:normal_item) { Normal.new('foo', 2, 2) }
+      let(:no_sell_in_item) { Normal.new('no_sell', 0, 4) }
+      let(:zero_quality_item) { Normal.new('no_sell', 0, 0) }
 
       it 'does not change the name' do
         expect { subject.update_quality }.not_to(change { items[0].name })
@@ -40,7 +40,7 @@ describe GildedRose do
   describe '#update_quality' do
     context 'when the item is aged brie' do
       let(:items) { [aged_brie_item] }
-      let(:aged_brie_item) { Item.new('Aged Brie', 2, 2) }
+      let(:aged_brie_item) { AgedBrie.new('Aged Brie', 2, 2) }
 
       it 'does not change the name' do
         expect { subject.update_quality }.not_to(change { items[0].name })
@@ -61,7 +61,7 @@ describe GildedRose do
   describe '#update_quality' do
     context 'when the item is sulfuras' do
       let(:items) { [sulfuras_item] }
-      let(:sulfuras_item) { Item.new('Sulfuras, Hand of Ragnaros', 2, 2) }
+      let(:sulfuras_item) { Sulfuras.new('Sulfuras, Hand of Ragnaros', 2, 2) }
 
       it 'does not change the name' do
         expect { subject.update_quality }.not_to(change { items[0].name })
@@ -84,7 +84,7 @@ describe GildedRose do
       end
 
       let(:backstage_pass1) do
-        Item.new(
+        BackstagePasses.new(
           'Backstage passes to a TAFKAL80ETC concert',
           15,
           2
@@ -92,7 +92,7 @@ describe GildedRose do
       end
 
       let(:backstage_pass2) do
-        Item.new(
+        BackstagePasses.new(
           'Backstage passes to a TAFKAL80ETC concert',
           10,
           2
@@ -100,7 +100,7 @@ describe GildedRose do
       end
 
       let(:backstage_pass3) do
-        Item.new(
+        BackstagePasses.new(
           'Backstage passes to a TAFKAL80ETC concert',
           5,
           2
@@ -108,7 +108,7 @@ describe GildedRose do
       end
 
       let(:backstage_pass4) do
-        Item.new(
+        BackstagePasses.new(
           'Backstage passes to a TAFKAL80ETC concert',
           0,
           2
